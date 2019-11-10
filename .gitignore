@@ -1,0 +1,10 @@
+.settings
+database/*
+dist/*
+target
+.classpath
+.project
+assembly.xml
+derby.log
+miglayout15-swing.jar
+NA
