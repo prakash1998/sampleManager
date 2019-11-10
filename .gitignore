@@ -1,6 +1,4 @@
 .settings
-database/*
-dist/*
 target
 .classpath
 .project
