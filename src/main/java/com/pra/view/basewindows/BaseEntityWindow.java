@@ -67,9 +67,11 @@ public abstract class BaseEntityWindow<T extends BaseModel<?>, C extends BaseEnt
 				control.createWithBackup(getDataFromUI());
 			} catch (DuplicateKeyException ex) {
 				JOptionPane.showMessageDialog(null, "Duplicate Data Found");
+				ex.printStackTrace();
 				return false;
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, ex.getMessage());
+				ex.printStackTrace();
 				return false;
 			}
 		} else

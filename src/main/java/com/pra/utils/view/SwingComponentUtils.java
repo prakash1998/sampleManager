@@ -22,7 +22,7 @@ public class SwingComponentUtils {
 	public static void clearTextInput(JTextComponent textComponent) {
 		textComponent.setText("");
 	}
-	
+
 	public static void clearAllText(JTextComponent... components) {
 		for (JTextComponent component : components)
 			component.setText("");
@@ -34,17 +34,17 @@ public class SwingComponentUtils {
 
 	public static Double doubleVal(JFormattedTextField component) {
 		String s = component.getText().replace(",", "");
-		// if(s.trim().isEmpty()) {
-		// return 0.0;
-		// }
+		if (s.trim().isEmpty()) {
+			return 0.0;
+		}
 		return Double.parseDouble(s);
 	}
 
 	public static Integer intVal(JFormattedTextField component) {
 		String s = component.getText().replace(",", "");
-		// if(s.trim().isEmpty()) {
-		// return 0;
-		// }
+		if (s.trim().isEmpty()) {
+			return 0;
+		}
 		return Integer.parseInt(s);
 	}
 

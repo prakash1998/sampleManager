@@ -18,6 +18,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 
 import org.springframework.stereotype.Component;
@@ -64,7 +65,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 	private JDateChooser dateChooserDate;
 	private JFormattedTextField formattedTextFieldRefNo;
 	private JComboBox<PartyIn> comboBoxParty;
-	private JFormattedTextField formattedTextFieldPartyRefNo;
+	private JTextField textFieldPartyRefNo;
 	private JComboBox<Product> comboBoxProduct;
 	private JFormattedTextField formattedTextFieldCost;
 	private JFormattedTextField formattedTextFieldPrice;
@@ -108,7 +109,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 	@Override
 	protected boolean validateData() {
 		if (anyBlank(this.formattedTextFieldRefNo,
-				this.formattedTextFieldPartyRefNo)|| invalidDate(this.dateChooserDate) || this.comboBoxParty.getSelectedIndex() == -1
+				this.textFieldPartyRefNo)|| invalidDate(this.dateChooserDate) || this.comboBoxParty.getSelectedIndex() == -1
 				|| this.comboBoxProduct.getSelectedIndex() == -1)
 			return false;
 		return true;
@@ -120,7 +121,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 		return SampleIn.builder()
 				.refId(PrimaryKeyConverter.convertFromOrdinary(intVal(this.formattedTextFieldRefNo), selectedDate))
 				.date(selectedDate).party((PartyIn) this.comboBoxParty.getSelectedItem())
-				.partyRefNo(stringVal(this.formattedTextFieldPartyRefNo))
+				.partyRefNo(stringVal(this.textFieldPartyRefNo))
 				.product((Product) this.comboBoxProduct.getSelectedItem()).detailReport(this.textAreaDetail.getText())
 				.cost(doubleVal(this.formattedTextFieldCost)).price(doubleVal(this.formattedTextFieldPrice)).build();
 	}
@@ -129,7 +130,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 	protected void setDataToUI(SampleIn obj) {
 		this.formattedTextFieldRefNo.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getRefId())));
 		this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(obj.getDate()));
-		this.formattedTextFieldPartyRefNo.setText(obj.getPartyRefNo());
+		this.textFieldPartyRefNo.setText(obj.getPartyRefNo());
 		this.comboBoxParty.setSelectedItem(obj.getParty());
 		this.comboBoxProduct.setSelectedItem(obj.getProduct());
 		this.textAreaDetail.setText(obj.getDetailReport());
@@ -164,8 +165,8 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 		this.labelPartyRefNo = new JLabel("Party Ref No :");
 		contentPanel.add(this.labelPartyRefNo, "cell 0 3,alignx trailing");
 
-		this.formattedTextFieldPartyRefNo = new JFormattedTextField(NumberFormat.getIntegerInstance());
-		contentPanel.add(this.formattedTextFieldPartyRefNo, "cell 1 3,growx");
+		this.textFieldPartyRefNo = new JTextField();
+		contentPanel.add(this.textFieldPartyRefNo, "cell 1 3,growx");
 
 		this.labelProduct = new JLabel("Product :");
 		contentPanel.add(this.labelProduct, "cell 0 4,alignx trailing");
@@ -249,7 +250,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 		this.comboBoxParty.removeAllItems();
 		this.comboBoxProduct.removeAllItems();
 		this.dataTablePane.resetDataTable();
-		clearAllText(this.textAreaDetail,this.formattedTextFieldPartyRefNo , this.formattedTextFieldPrice , this.formattedTextFieldCost);
+		clearAllText(this.textAreaDetail,this.textFieldPartyRefNo , this.formattedTextFieldPrice , this.formattedTextFieldCost);
 	}
 
 }
