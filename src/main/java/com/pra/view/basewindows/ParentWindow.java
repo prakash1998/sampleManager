@@ -26,6 +26,10 @@ public abstract class ParentWindow<C extends BaseController> extends JFrame {
 	@Autowired
 	protected C control;
 	
+	
+	protected final int windowHeight;
+	protected final int windowWidth;
+	
 	/**
 	 * 
 	 */
@@ -52,6 +56,13 @@ public abstract class ParentWindow<C extends BaseController> extends JFrame {
 	public ParentWindow() {
 		
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.windowHeight = screenSize.height;
+		this.windowWidth = screenSize.width;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(screenSize);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		topPanel = new JPanel();
 		getContentPane().add(topPanel, BorderLayout.NORTH);
@@ -93,17 +104,6 @@ public abstract class ParentWindow<C extends BaseController> extends JFrame {
 		
 		horizontalStrutRight = Box.createHorizontalStrut(50);
 		rightPanel.add(horizontalStrutRight);
-
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-//		int midy = (int) screenSize.getHeight() / 2;
-//		int midx = (int) screenSize.getWidth() / 2;
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//setBounds(midx - 480, midy - 300, 960, 600);
-		this.setSize(screenSize);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 	}
 	

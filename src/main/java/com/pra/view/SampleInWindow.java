@@ -1,6 +1,7 @@
 package com.pra.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -140,7 +141,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 	 * Create the frame.
 	 */
 	public SampleInWindow() {
-		contentPanel.setLayout(new MigLayout("", "640[][300][grow]", "[][][][][][100][][][][][][]"));
+		contentPanel.setLayout(new MigLayout("", (this.windowWidth/3.25)+"[][grow]["+(this.windowWidth/3.25)+"]", "[][][][][][100][][][][][][]"));
 
 		this.labelDate = new JLabel("Date :");
 		contentPanel.add(this.labelDate, "cell 0 0,alignx trailing");
@@ -190,10 +191,6 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 		this.formattedTextFieldPrice = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldPrice, "cell 1 7,growx");
 
-		contentPanel.add(this.btnSave, "flowx,cell 1 9,alignx center");
-		contentPanel.add(this.btnUpdate, "flowx,cell 1 9,alignx center");
-		contentPanel.add(this.btnCancel, "cell 1 9,alignx center");
-
 		this.btnAddSampleReadings = new JButton("Add Sample Readings");
 		this.btnAddSampleReadings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -210,12 +207,17 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 
 	@Override
 	protected void postConstruction() {
+		contentPanel.add(this.btnSave, "flowx,cell 1 9,alignx center");
+		contentPanel.add(this.btnUpdate, "flowx,cell 1 9,alignx center");
+		contentPanel.add(this.btnDelete, "flowx,cell 1 9,alignx center");
+		contentPanel.add(this.btnCancel, "cell 1 9,alignx center");
+		
 		this.initializetextAreaWithAutoComplete();
 		this.dataTablePane = new DataTable<SampleInReadingReportBean>(
 				obj -> control.navigateToSampleInReading(obj)) {
 			private static final long serialVersionUID = 1L;
 		};
-		super.footerPanel.add(this.dataTablePane, BorderLayout.CENTER);
+//		super.footerPanel.add(this.dataTablePane, BorderLayout.SOUTH);
 	}
 
 	@Override

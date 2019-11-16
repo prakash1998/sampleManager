@@ -41,10 +41,10 @@ public abstract class BaseEntityWindow<T extends BaseModel<?>, C extends BaseEnt
 			}
 		});
 
-		this.btnUpdate = new JButton("Delete");
-		this.btnUpdate.addActionListener(new ActionListener() {
+		this.btnDelete = new JButton("Delete");
+		this.btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (CommonOptionPanes.showExitPrompt())
+				if (CommonOptionPanes.showDeletePrompt())
 					if (validateAndDeleteData())
 						control.navigateToHome();
 			}
@@ -109,6 +109,7 @@ public abstract class BaseEntityWindow<T extends BaseModel<?>, C extends BaseEnt
 		super.showWindow();
 		this.btnSave.setEnabled(false);
 		this.btnUpdate.setEnabled(true);
+		this.btnDelete.setEnabled(true);
 		this.setDataToUI(obj);
 		this.setVisible(true);
 		this.getRootPane().setDefaultButton(this.btnUpdate);
@@ -119,6 +120,7 @@ public abstract class BaseEntityWindow<T extends BaseModel<?>, C extends BaseEnt
 		super.showWindow();
 		this.btnSave.setEnabled(true);
 		this.btnUpdate.setEnabled(false);
+		this.btnDelete.setEnabled(false);
 		this.getRootPane().setDefaultButton(this.btnSave);
 	}
 

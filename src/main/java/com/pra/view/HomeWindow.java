@@ -66,7 +66,7 @@ public class HomeWindow extends ParentWindow<HomeController> {
 		this.lblHome = new JLabel("Home");
 		this.lblHome.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		headerPanel.add(this.lblHome);
-		contentPanel.setLayout(new MigLayout("", "[600][grow][600]", "[][][][][][][][][][][]"));
+		contentPanel.setLayout(new MigLayout("", "["+this.windowWidth/3+"][grow]["+this.windowWidth/3+"]", "[][][][][][][][][][][]"));
 
 		this.btnSampleIn = new JButton("New Sample Inward");
 		this.btnSampleIn.addActionListener(new ActionListener() {

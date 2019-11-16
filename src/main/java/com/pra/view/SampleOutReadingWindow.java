@@ -151,7 +151,10 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 	 * Create the frame.
 	 */
 	public SampleOutReadingWindow() {
-		contentPanel.setLayout(new MigLayout("", "500[][300.00][][300]", "[][][100]30[]30[][][][][][][]"));
+		int sideMargin = this.windowWidth/5;
+		int inputSizes = this.windowWidth/5;
+		
+		contentPanel.setLayout(new MigLayout("", sideMargin+"[]["+inputSizes+"][]["+inputSizes+"][]", "[][][100]30[]30[][][][][][][]"));
 
 		this.lblId = new JLabel("ID :");
 		contentPanel.add(this.lblId, "cell 0 0,alignx trailing");
@@ -252,6 +255,7 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 		this.lblSampleOut.setFont(new Font("Tahoma", Font.BOLD, 20));
 		headerPanel.add(this.lblSampleOut);
 		getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[]{this.textAreaDetail, this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1, this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2, this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2, this.formattedTextFieldDC2, headerPanel, this.lblSampleOut, footerPanel, contentPanel, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate, this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo, this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2, this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7, this.labelReading8, this.labelReading9, this.labelReading10, leftSidePanel, rightSidePanel}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[]{this.textAreaDetail, this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1, this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2, this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2, this.formattedTextFieldDC2, getContentPane(), headerPanel, this.lblSampleOut, footerPanel, contentPanel, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate, this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo, this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2, this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7, this.labelReading8, this.labelReading9, this.labelReading10, leftSidePanel, rightSidePanel}));
 	
 	}
 
@@ -259,6 +263,7 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 	protected void postConstruction() {
 		contentPanel.add(super.btnSave, "flowx,cell 1 10,alignx center");
 		contentPanel.add(super.btnUpdate, "flowx,cell 1 10,alignx center");
+		contentPanel.add(this.btnDelete, "flowx,cell 1 10,alignx center");
 		contentPanel.add(super.btnCancel, "cell 1 10,alignx center");
 		this.initializetextAreaWithAutoComplete();
 	}

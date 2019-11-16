@@ -33,7 +33,7 @@ public class ApplicationLoader implements CommandLineRunner {
 
 		new LoadingScreen(6).setVisible(true);
 
-		setDefaultFont(new Font("Arial", Font.BOLD, 14));
+//		setDefaultFont(new Font("Arial", Font.BOLD, 10));
 
 		try {
 			new SpringApplicationBuilder(ApplicationLoader.class).headless(false).run(args);
