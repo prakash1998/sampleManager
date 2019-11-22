@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.pra")
 @ComponentScan({ "com.pra" })
-@PropertySource(value = { "file:resources/application.properties" })
+@PropertySource("classpath:application.properties")
 public class HibernateConfiguration {
  
     @Autowired

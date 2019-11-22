@@ -5,9 +5,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@PropertySource(value = { "file:resources/application.properties" })
+@PropertySource(value = { "file:resources/config.properties" })
 @Component
-public class AppProperties {
+public class AppConfigProperties {
 
     @Autowired
     private Environment env;

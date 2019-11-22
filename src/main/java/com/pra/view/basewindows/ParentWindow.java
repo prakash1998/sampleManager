@@ -15,13 +15,13 @@ import javax.swing.JPanel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.pra.config.AppProperties;
+import com.pra.config.AppConfigProperties;
 import com.pra.controller.interfaces.BaseController;
 
 public abstract class ParentWindow<C extends BaseController> extends JFrame {
 	
 	@Autowired
-	protected AppProperties properties;
+	protected AppConfigProperties properties;
 	
 	@Autowired
 	protected C control;
