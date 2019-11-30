@@ -1,7 +1,13 @@
 package com.pra.view;
 
+import static com.pra.utils.view.SwingComponentUtils.anyBlank;
+import static com.pra.utils.view.SwingComponentUtils.clearAllText;
+import static com.pra.utils.view.SwingComponentUtils.doubleVal;
+import static com.pra.utils.view.SwingComponentUtils.intVal;
+import static com.pra.utils.view.SwingComponentUtils.invalidDate;
+import static com.pra.utils.view.SwingComponentUtils.stringVal;
+
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,8 +43,6 @@ import com.pra.view.basewindows.BaseEntityWindow;
 import com.toedter.calendar.JDateChooser;
 
 import net.miginfocom.swing.MigLayout;
-
-import static com.pra.utils.view.SwingComponentUtils.*;
 
 @Component
 public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInController> {
@@ -229,8 +233,10 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 			this.formattedTextFieldRefNo
 					.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxRefId(), now)));
 			this.btnAddSampleReadings.setEnabled(false);
+			this.dateChooserDate.setEnabled(true);
 		} else {
 			this.btnAddSampleReadings.setEnabled(true);
+			this.dateChooserDate.setEnabled(false);
 			List<SampleInReading> readings = modelObject.getReadings();
 			if (readings != null) {
 				this.dataTablePane.setTableData(

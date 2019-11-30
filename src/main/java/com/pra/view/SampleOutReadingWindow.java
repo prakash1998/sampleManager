@@ -277,10 +277,12 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 	@Override
 	public void init() {
 		if (modelObject == null) {
-			this.formattedTextFieldId.setText(String.valueOf(control.getMaxId() + 1));
+			LocalDate now = LocalDate.now();
+			this.formattedTextFieldId.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxId(), now)));
 			this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(LocalDate.now()));
+			this.dateChooserDate.setEnabled(true);
 		}else {
-			
+			this.dateChooserDate.setEnabled(false);
 		}
 	}
 

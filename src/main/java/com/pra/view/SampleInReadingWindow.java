@@ -110,7 +110,7 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 		if (anyBlank(this.formattedTextFieldRefNo, this.formattedTextFieldStrength1, this.formattedTextFieldStrength2,
 				this.formattedTextFieldDA1, this.formattedTextFieldDA2, this.formattedTextFieldDE1,
 				this.formattedTextFieldDE2, this.formattedTextFieldDB1, this.formattedTextFieldDB2,
-				this.formattedTextFieldDC1, this.formattedTextFieldDC2)|| invalidDate(this.dateChooserDate))
+				this.formattedTextFieldDC1, this.formattedTextFieldDC2) || invalidDate(this.dateChooserDate))
 			return false;
 		return true;
 	}
@@ -119,20 +119,20 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 	protected SampleInReading getDataFromUI() {
 		LocalDate selectedDate = DateConvertUtils.asLocalDate(this.dateChooserDate.getDate());
 		return SampleInReading.builder()
-				.id(PrimaryKeyConverter.convertFromOrdinary(intVal(this.formattedTextFieldId),selectedDate))
-				.date(selectedDate).sample(this.sampleIn)
-				.detailReport(this.textAreaDetail.getText()).strength1(doubleVal(this.formattedTextFieldStrength1))
-				.de1(doubleVal(this.formattedTextFieldDE1)).da1(doubleVal(this.formattedTextFieldDA1))
-				.db1(doubleVal(this.formattedTextFieldDB1)).dc1(doubleVal(this.formattedTextFieldDC1))
-				.strength2(doubleVal(this.formattedTextFieldStrength2)).de2(doubleVal(this.formattedTextFieldDE2))
-				.da2(doubleVal(this.formattedTextFieldDA2)).db2(doubleVal(this.formattedTextFieldDB2))
-				.dc2(doubleVal(this.formattedTextFieldDC2)).build();
+				.id(PrimaryKeyConverter.convertFromOrdinary(intVal(this.formattedTextFieldId), selectedDate))
+				.date(selectedDate).sample(this.sampleIn).detailReport(this.textAreaDetail.getText())
+				.strength1(doubleVal(this.formattedTextFieldStrength1)).de1(doubleVal(this.formattedTextFieldDE1))
+				.da1(doubleVal(this.formattedTextFieldDA1)).db1(doubleVal(this.formattedTextFieldDB1))
+				.dc1(doubleVal(this.formattedTextFieldDC1)).strength2(doubleVal(this.formattedTextFieldStrength2))
+				.de2(doubleVal(this.formattedTextFieldDE2)).da2(doubleVal(this.formattedTextFieldDA2))
+				.db2(doubleVal(this.formattedTextFieldDB2)).dc2(doubleVal(this.formattedTextFieldDC2)).build();
 	}
 
 	@Override
 	protected void setDataToUI(SampleInReading obj) {
 		this.formattedTextFieldId.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getId())));
-		this.formattedTextFieldRefNo.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getSample().getRefId())));
+		this.formattedTextFieldRefNo
+				.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getSample().getRefId())));
 		this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(obj.getDate()));
 		this.textAreaDetail.setText(obj.getDetailReport());
 		this.formattedTextFieldStrength1.setText(String.valueOf(obj.getStrength1()));
@@ -151,11 +151,12 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 	 * Create the frame.
 	 */
 	public SampleInReadingWindow() {
-		
-		int sideMargin = this.windowWidth/5;
-		int inputSizes = this.windowWidth/5;
-		
-		contentPanel.setLayout(new MigLayout("", sideMargin+"[]["+inputSizes+"][]["+inputSizes+"][]", "[][][100]30[]30[][][][][][][]"));
+
+		int sideMargin = this.windowWidth / 5;
+		int inputSizes = this.windowWidth / 5;
+
+		contentPanel.setLayout(new MigLayout("", sideMargin + "[][" + inputSizes + "][][" + inputSizes + "][]",
+				"[][][100]30[]30[][][][][][][]"));
 
 		this.lblId = new JLabel("ID :");
 		contentPanel.add(this.lblId, "cell 0 0,alignx trailing");
@@ -250,13 +251,39 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 
 		this.formattedTextFieldDC2 = new JFormattedTextField((Format) null);
 		contentPanel.add(this.formattedTextFieldDC2, "cell 3 8,growx");
-		contentPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[]{this.textAreaDetail, this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1, this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2, this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2, this.formattedTextFieldDC2, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate, this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo, this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2, this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7, this.labelReading8, this.labelReading9, this.labelReading10}));
+		contentPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[] { this.textAreaDetail,
+				this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1,
+				this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2,
+				this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2,
+				this.formattedTextFieldDC2, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate,
+				this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo,
+				this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2,
+				this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7,
+				this.labelReading8, this.labelReading9, this.labelReading10 }));
 
 		this.lblSampleIn = new JLabel("Sample IN");
 		this.lblSampleIn.setFont(new Font("Tahoma", Font.BOLD, 20));
 		headerPanel.add(this.lblSampleIn);
-		getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[]{this.textAreaDetail, this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1, this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2, this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2, this.formattedTextFieldDC2, headerPanel, this.lblSampleIn, footerPanel, contentPanel, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate, this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo, this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2, this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7, this.labelReading8, this.labelReading9, this.labelReading10, leftSidePanel, rightSidePanel}));
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[]{this.textAreaDetail, this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1, this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2, this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2, this.formattedTextFieldDC2, getContentPane(), headerPanel, this.lblSampleIn, footerPanel, contentPanel, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate, this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo, this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2, this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7, this.labelReading8, this.labelReading9, this.labelReading10, leftSidePanel, rightSidePanel}));
+		getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[] {
+				this.textAreaDetail, this.formattedTextFieldStrength1, this.formattedTextFieldDE1,
+				this.formattedTextFieldDA1, this.formattedTextFieldDB1, this.formattedTextFieldDC1,
+				this.formattedTextFieldStrength2, this.formattedTextFieldDE2, this.formattedTextFieldDA2,
+				this.formattedTextFieldDB2, this.formattedTextFieldDC2, headerPanel, this.lblSampleIn, footerPanel,
+				contentPanel, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate,
+				this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo,
+				this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2,
+				this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7,
+				this.labelReading8, this.labelReading9, this.labelReading10, leftSidePanel, rightSidePanel }));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[] { this.textAreaDetail,
+				this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1,
+				this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2,
+				this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2,
+				this.formattedTextFieldDC2, getContentPane(), headerPanel, this.lblSampleIn, footerPanel, contentPanel,
+				this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate,
+				this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo,
+				this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2,
+				this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7,
+				this.labelReading8, this.labelReading9, this.labelReading10, leftSidePanel, rightSidePanel }));
 
 	}
 
@@ -278,10 +305,12 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 	@Override
 	public void init() {
 		if (modelObject == null) {
-			this.formattedTextFieldId.setText(String.valueOf(control.getMaxId() + 1));
+			LocalDate now = LocalDate.now();
+			this.formattedTextFieldId.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxId(),now)));
 			this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(LocalDate.now()));
-		}else {
-			
+			this.dateChooserDate.setEnabled(true);
+		} else {
+			this.dateChooserDate.setEnabled(false);
 		}
 	}
 
@@ -292,9 +321,10 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 
 	@Override
 	protected void resetWindow() {
-		clearAllText(this.textAreaDetail,this.formattedTextFieldDA1,this.formattedTextFieldDA2,this.formattedTextFieldDB1,this.formattedTextFieldDB2,
-				this.formattedTextFieldDC1,this.formattedTextFieldDC2,this.formattedTextFieldDE1,this.formattedTextFieldDE2,
-				this.formattedTextFieldStrength1,this.formattedTextFieldStrength2);
+		clearAllText(this.textAreaDetail, this.formattedTextFieldDA1, this.formattedTextFieldDA2,
+				this.formattedTextFieldDB1, this.formattedTextFieldDB2, this.formattedTextFieldDC1,
+				this.formattedTextFieldDC2, this.formattedTextFieldDE1, this.formattedTextFieldDE2,
+				this.formattedTextFieldStrength1, this.formattedTextFieldStrength2);
 	}
 
 }

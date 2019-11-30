@@ -216,8 +216,10 @@ public class SampleOutWindow extends BaseEntityWindow<SampleOut, SampleOutContro
 			this.formattedTextFieldRefNo
 					.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxRefId(), now)));
 			this.btnAddSampleReadings.setEnabled(false);
+			this.dateChooserDate.setEnabled(true);
 		} else {
 			this.btnAddSampleReadings.setEnabled(true);
+			this.dateChooserDate.setEnabled(false);
 			List<SampleOutReading> readings = modelObject.getReadings();
 			if (readings != null) {
 				this.dataTablePane.setTableData(
