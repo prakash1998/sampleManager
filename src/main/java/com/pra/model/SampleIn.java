@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.pra.reports.beans.SampleInReportBean;
 
@@ -30,6 +31,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"readings"})
 public class SampleIn implements BaseModel<Integer>{
+	@Transient
+	private final String PREFIX = "IW";
 	
 	@Id
 	private Integer refId;
@@ -45,10 +48,14 @@ public class SampleIn implements BaseModel<Integer>{
 	@OneToMany(mappedBy = "sample",cascade = CascadeType.ALL)
 	private List<SampleInReading> readings;
 	
+	public String formattedKey() {
+		return formatKey(this.refId,PREFIX);
+	}
+	
 	public SampleInReportBean sampleInReportBean() {
 		return SampleInReportBean.builder()
 				.key(this.refId)
-				.refId(formatKey(this.refId,"IW"))
+				.refId(this.formattedKey())
 				.date(formatDate(this.date))
 				.productName(this.product == null ? "-" :this.product.toString())
 				.partyName(this.party == null ? "-" :this.party.toString())

@@ -1,9 +1,17 @@
 package com.pra.utils.commons;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Month;
 
 public class PrimaryKeyConverter {
+	
+	public static NumberFormat getFormatter() {
+		NumberFormat primaryKeyFormatter = NumberFormat.getIntegerInstance();
+		primaryKeyFormatter.setMaximumIntegerDigits(6);
+		primaryKeyFormatter.setMinimumIntegerDigits(1);
+		return primaryKeyFormatter;
+	}
 
 	public static int getOrdinary(Integer key) {
 		return key % 1000000;

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pra.reports.beans.SampleOutReadingReportBean;
@@ -26,6 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SampleOutReading implements BaseModel<Integer> {
+	@Transient
+	private final String PREFIX = "SO";
 	
 	@Id
 	private Integer id;
@@ -45,10 +48,14 @@ public class SampleOutReading implements BaseModel<Integer> {
 	private Double dc1;
 	private Double dc2;
 	
+	public String formattedKey() {
+		return formatKey(this.id,PREFIX);
+	}
+	
 	public SampleOutReadingReportBean sampleOutReadingReportBean() {
 		return SampleOutReadingReportBean.builder()
 				.key(this.id)
-				.id(formatKey(this.id,"SO"))
+				.id(this.formattedKey())
 				.date(formatDate(this.date))
 				.productName(this.sample == null ? "-" :this.sample.getProduct().toString())
 				.sampleOutRef(this.sample == null ? "-" :formatKey(this.sample.getRefId(),"IW"))

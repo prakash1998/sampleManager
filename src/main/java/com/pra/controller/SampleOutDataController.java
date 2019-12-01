@@ -18,7 +18,7 @@ public class SampleOutDataController extends BaseDataController<SampleOut, Sampl
 
 	@Override
 	public List<SampleOut> getBetweenDesc(LocalDate startDate, LocalDate endDate) {
-		return repo.findAllByDateBetweenOrderByRefIdDesc(startDate, endDate);
+		return repo.findAllByDateBetweenOrderByDateDesc(startDate, endDate);
 	}
 
 	@Override

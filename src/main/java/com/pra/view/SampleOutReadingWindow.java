@@ -31,6 +31,7 @@ import com.pra.model.SampleOutReading;
 import com.pra.utils.commons.DateConvertUtils;
 import com.pra.utils.commons.PrimaryKeyConverter;
 import com.pra.utils.view.AutoComplete;
+import com.pra.utils.view.SwingComponentUtils;
 import com.pra.view.basewindows.BaseEntityWindow;
 import com.toedter.calendar.JDateChooser;
 
@@ -119,7 +120,7 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 	protected SampleOutReading getDataFromUI() {
 		LocalDate selectedDate = DateConvertUtils.asLocalDate(this.dateChooserDate.getDate());
 		return SampleOutReading.builder()
-				.id(PrimaryKeyConverter.convertFromOrdinary(intVal(this.formattedTextFieldId),selectedDate))
+				.id(PrimaryKeyConverter.convertFromOrdinary(SwingComponentUtils.positiveIntVal(this.formattedTextFieldId),selectedDate))
 				.date(selectedDate).sample(this.sampleOut)
 				.detailReport(this.textAreaDetail.getText()).strength1(doubleVal(this.formattedTextFieldStrength1))
 				.de1(doubleVal(this.formattedTextFieldDE1)).da1(doubleVal(this.formattedTextFieldDA1))
@@ -132,7 +133,7 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 	@Override
 	protected void setDataToUI(SampleOutReading obj) {
 		this.formattedTextFieldId.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getId())));
-		this.formattedTextFieldRefNo.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getSample().getRefId())));
+		this.formattedTextFieldRefNo.setText(obj.getSample().formattedKey());
 		this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(obj.getDate()));
 		this.textAreaDetail.setText(obj.getDetailReport());
 		this.formattedTextFieldStrength1.setText(String.valueOf(obj.getStrength1()));
@@ -159,7 +160,7 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 		this.lblId = new JLabel("ID :");
 		contentPanel.add(this.lblId, "cell 0 0,alignx trailing");
 
-		this.formattedTextFieldId = new JFormattedTextField((Format) null);
+		this.formattedTextFieldId = new JFormattedTextField();
 		this.formattedTextFieldId.setEditable(false);
 		contentPanel.add(this.formattedTextFieldId, "cell 1 0,growx");
 
@@ -172,7 +173,7 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 		this.labelReferenceNo = new JLabel("Reference No :");
 		contentPanel.add(this.labelReferenceNo, "cell 0 1,alignx trailing");
 
-		this.formattedTextFieldRefNo = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		this.formattedTextFieldRefNo = new JFormattedTextField();
 		this.formattedTextFieldRefNo.setEditable(false);
 		contentPanel.add(this.formattedTextFieldRefNo, "cell 1 1,growx");
 
