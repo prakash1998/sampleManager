@@ -3,7 +3,6 @@ package com.pra.view;
 import static com.pra.utils.view.SwingComponentUtils.anyBlank;
 import static com.pra.utils.view.SwingComponentUtils.clearAllText;
 import static com.pra.utils.view.SwingComponentUtils.doubleVal;
-import static com.pra.utils.view.SwingComponentUtils.intVal;
 import static com.pra.utils.view.SwingComponentUtils.invalidDate;
 import static com.pra.utils.view.SwingComponentUtils.stringVal;
 
@@ -38,6 +37,7 @@ import com.pra.reports.beans.SampleInReadingReportBean;
 import com.pra.utils.commons.DateConvertUtils;
 import com.pra.utils.commons.PrimaryKeyConverter;
 import com.pra.utils.view.AutoComplete;
+import com.pra.utils.view.SwingComponentUtils;
 import com.pra.utils.view.datatable.DataTable;
 import com.pra.view.basewindows.BaseEntityWindow;
 import com.toedter.calendar.JDateChooser;
@@ -123,7 +123,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 	protected SampleIn getDataFromUI() {
 		LocalDate selectedDate = DateConvertUtils.asLocalDate(this.dateChooserDate.getDate());
 		return SampleIn.builder()
-				.refId(PrimaryKeyConverter.convertFromOrdinary(intVal(this.formattedTextFieldRefNo), selectedDate))
+				.refId(PrimaryKeyConverter.convertFromOrdinary(SwingComponentUtils.positiveIntVal(this.formattedTextFieldRefNo), selectedDate))
 				.date(selectedDate).party((PartyIn) this.comboBoxParty.getSelectedItem())
 				.partyRefNo(stringVal(this.textFieldPartyRefNo))
 				.product((Product) this.comboBoxProduct.getSelectedItem()).detailReport(this.textAreaDetail.getText())
@@ -157,7 +157,7 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 		this.labelReferenceNo = new JLabel("Reference No :");
 		contentPanel.add(this.labelReferenceNo, "cell 0 1,alignx trailing");
 
-		this.formattedTextFieldRefNo = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		this.formattedTextFieldRefNo = new JFormattedTextField(PrimaryKeyConverter.getFormatter());
 		contentPanel.add(this.formattedTextFieldRefNo, "cell 1 1,growx");
 
 		this.labelParty = new JLabel("Party :");
@@ -233,9 +233,11 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 			this.formattedTextFieldRefNo
 					.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxRefId(), now)));
 			this.btnAddSampleReadings.setEnabled(false);
+			this.formattedTextFieldRefNo.setEditable(true);
 			this.dateChooserDate.setEnabled(true);
 		} else {
 			this.btnAddSampleReadings.setEnabled(true);
+			this.formattedTextFieldRefNo.setEditable(false);
 			this.dateChooserDate.setEnabled(false);
 			List<SampleInReading> readings = modelObject.getReadings();
 			if (readings != null) {

@@ -40,6 +40,16 @@ public class SwingComponentUtils {
 		return Double.parseDouble(s);
 	}
 
+	public static Integer positiveIntVal(JFormattedTextField component) {
+		String s = component.getText().replace(",", "");
+		if(s.contains("-"))
+			s = s.replace("-", "");
+		if (s.trim().isEmpty()) {
+			return 0;
+		}
+		return Integer.parseInt(s);
+	}
+	
 	public static Integer intVal(JFormattedTextField component) {
 		String s = component.getText().replace(",", "");
 		if (s.trim().isEmpty()) {

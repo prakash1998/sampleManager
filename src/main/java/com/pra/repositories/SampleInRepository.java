@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.pra.model.SampleIn;
 
 public interface SampleInRepository extends JpaRepository<SampleIn, Integer>{
-	List<SampleIn> findAllByDateBetweenOrderByRefIdDesc(LocalDate startDate, LocalDate endDate);
+	List<SampleIn> findAllByDateBetweenOrderByDateDesc(LocalDate startDate, LocalDate endDate);
 	
 	@Query("SELECT MAX(t.refId) as m FROM SampleIn t")
 	Integer getMaxRefId();

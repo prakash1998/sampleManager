@@ -3,14 +3,12 @@ package com.pra.view;
 import static com.pra.utils.view.SwingComponentUtils.anyBlank;
 import static com.pra.utils.view.SwingComponentUtils.clearAllText;
 import static com.pra.utils.view.SwingComponentUtils.doubleVal;
-import static com.pra.utils.view.SwingComponentUtils.intVal;
 import static com.pra.utils.view.SwingComponentUtils.invalidDate;
 
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.io.File;
 import java.text.Format;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,7 @@ import com.pra.model.SampleInReading;
 import com.pra.utils.commons.DateConvertUtils;
 import com.pra.utils.commons.PrimaryKeyConverter;
 import com.pra.utils.view.AutoComplete;
+import com.pra.utils.view.SwingComponentUtils;
 import com.pra.view.basewindows.BaseEntityWindow;
 import com.toedter.calendar.JDateChooser;
 
@@ -119,7 +118,7 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 	protected SampleInReading getDataFromUI() {
 		LocalDate selectedDate = DateConvertUtils.asLocalDate(this.dateChooserDate.getDate());
 		return SampleInReading.builder()
-				.id(PrimaryKeyConverter.convertFromOrdinary(intVal(this.formattedTextFieldId), selectedDate))
+				.id(PrimaryKeyConverter.convertFromOrdinary(SwingComponentUtils.positiveIntVal(this.formattedTextFieldId), selectedDate))
 				.date(selectedDate).sample(this.sampleIn).detailReport(this.textAreaDetail.getText())
 				.strength1(doubleVal(this.formattedTextFieldStrength1)).de1(doubleVal(this.formattedTextFieldDE1))
 				.da1(doubleVal(this.formattedTextFieldDA1)).db1(doubleVal(this.formattedTextFieldDB1))
@@ -132,7 +131,7 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 	protected void setDataToUI(SampleInReading obj) {
 		this.formattedTextFieldId.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getId())));
 		this.formattedTextFieldRefNo
-				.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(obj.getSample().getRefId())));
+				.setText(obj.getSample().formattedKey());
 		this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(obj.getDate()));
 		this.textAreaDetail.setText(obj.getDetailReport());
 		this.formattedTextFieldStrength1.setText(String.valueOf(obj.getStrength1()));
@@ -161,7 +160,7 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 		this.lblId = new JLabel("ID :");
 		contentPanel.add(this.lblId, "cell 0 0,alignx trailing");
 
-		this.formattedTextFieldId = new JFormattedTextField((Format) null);
+		this.formattedTextFieldId = new JFormattedTextField();
 		this.formattedTextFieldId.setEditable(false);
 		contentPanel.add(this.formattedTextFieldId, "cell 1 0,growx");
 
@@ -174,7 +173,7 @@ public class SampleInReadingWindow extends BaseEntityWindow<SampleInReading, Sam
 		this.labelReferenceNo = new JLabel("Reference No :");
 		contentPanel.add(this.labelReferenceNo, "cell 0 1,alignx trailing");
 
-		this.formattedTextFieldRefNo = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		this.formattedTextFieldRefNo = new JFormattedTextField();
 		this.formattedTextFieldRefNo.setEditable(false);
 		contentPanel.add(this.formattedTextFieldRefNo, "cell 1 1,growx");
 
