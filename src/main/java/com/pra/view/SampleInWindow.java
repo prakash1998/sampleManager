@@ -7,6 +7,7 @@ import static com.pra.utils.view.SwingComponentUtils.invalidDate;
 import static com.pra.utils.view.SwingComponentUtils.stringVal;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +43,7 @@ import com.pra.utils.view.datatable.DataTable;
 import com.pra.view.basewindows.BaseEntityWindow;
 import com.toedter.calendar.JDateChooser;
 
+import net.bytebuddy.implementation.bind.annotation.This;
 import net.miginfocom.swing.MigLayout;
 
 @Component
@@ -206,7 +208,8 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 
 		this.lblSampleIn = new JLabel("Sample IN");
 		headerPanel.add(this.lblSampleIn);
-		footerPanel.setLayout(new BorderLayout(0, 0));
+
+//		contentPanel.setBackground(Color.BLUE);
 
 	}
 
@@ -222,7 +225,9 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 				obj -> control.navigateToSampleInReading(obj)) {
 			private static final long serialVersionUID = 1L;
 		};
-//		super.footerPanel.add(this.dataTablePane, BorderLayout.SOUTH);
+
+		footerPanel.setLayout(new MigLayout("", "[grow]", "["+super.windowHeight/4+"]"));
+		footerPanel.add(this.dataTablePane, "cell 0 0,growx");
 	}
 
 	@Override
@@ -231,14 +236,14 @@ public class SampleInWindow extends BaseEntityWindow<SampleIn, SampleInControlle
 			LocalDate now = LocalDate.now();
 			this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(now));
 			this.formattedTextFieldRefNo
-					.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxRefId(), now)));
+					.setText(String.valueOf(control.getNextInSequence()));
 			this.btnAddSampleReadings.setEnabled(false);
 			this.formattedTextFieldRefNo.setEditable(true);
-			this.dateChooserDate.setEnabled(true);
+//			this.dateChooserDate.setEnabled(true);
 		} else {
 			this.btnAddSampleReadings.setEnabled(true);
 			this.formattedTextFieldRefNo.setEditable(false);
-			this.dateChooserDate.setEnabled(false);
+//			this.dateChooserDate.setEnabled(false);
 			List<SampleInReading> readings = modelObject.getReadings();
 			if (readings != null) {
 				this.dataTablePane.setTableData(

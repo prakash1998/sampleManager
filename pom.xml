@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.pra</groupId>
 	<artifactId>samplemanagement</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<name>Sample Management</name>
 
 	<packaging>jar</packaging>
@@ -12,8 +12,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
 
 	<dependencies>
@@ -142,15 +142,14 @@
 						<configuration>
 							<headerType>gui</headerType>
 							<dontWrapJar>false</dontWrapJar>
-							<jar>target/samplemanagement-1.0.0.jar</jar>
+							<jar>target/samplemanagement-1.1.0.jar</jar>
 							<outfile>dist/SampleManager.exe</outfile>
-							 <errTitle>Sample Mnager</errTitle>
-							 <icon>SampleManagerIcon.ico</icon>
+							<errTitle>Sample Mnager</errTitle>
+							<icon>SampleManagerIcon.ico</icon>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<jre>
 								<bundledJre64Bit>false</bundledJre64Bit>
-								<!--  <bundledJreAsFallback>true</bundledJreAsFallback>
-								<path>jre1.8.0_201</path>-->
+								<!-- <bundledJreAsFallback>true</bundledJreAsFallback> <path>jre1.8.0_201</path> -->
 								<minVersion>1.8.0</minVersion>
 								<jdkPreference>preferJre</jdkPreference>
 								<runtimeBits>64</runtimeBits>
@@ -170,23 +169,10 @@
 					</execution>
 				</executions>
 			</plugin>
-<!--			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<descriptors>
-								<descriptor>assembly.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>   -->
+			<!-- <plugin> <artifactId>maven-assembly-plugin</artifactId> <executions> 
+				<execution> <id>assembly</id> <phase>package</phase> <goals> <goal>single</goal> 
+				</goals> <configuration> <descriptors> <descriptor>assembly.xml</descriptor> 
+				</descriptors> </configuration> </execution> </executions> </plugin> -->
 			<!-- LAUNCH4J END -->
 		</plugins>
 	</build>

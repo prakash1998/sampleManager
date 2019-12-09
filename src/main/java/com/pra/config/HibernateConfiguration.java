@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.pra")
-@ComponentScan({ "com.pra" })
 @PropertySource("classpath:application.properties")
 public class HibernateConfiguration {
  
@@ -63,10 +63,11 @@ public class HibernateConfiguration {
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
-        bean.setDatabase(Database.H2);
+        bean.setDatabase(Database.DERBY);
         bean.setShowSql(true);
         return bean;
     }
+    
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter) {
@@ -79,6 +80,7 @@ public class HibernateConfiguration {
     }
 
     @Bean
+    @Autowired
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }

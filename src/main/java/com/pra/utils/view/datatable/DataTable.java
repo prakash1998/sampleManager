@@ -118,6 +118,7 @@ public abstract class DataTable<T> extends JPanel {
 	
 	public void resetDataTable() {
 		this.availableData = new ArrayList<>();
+		this.refreshTable();
 	}
 
 }

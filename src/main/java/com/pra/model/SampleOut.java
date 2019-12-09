@@ -1,7 +1,6 @@
 package com.pra.model;
 
 import static com.pra.utils.view.DataFormatUtils.formatDate;
-import static com.pra.utils.view.DataFormatUtils.formatKey;
 import static com.pra.utils.view.DataFormatUtils.formatNum;
 
 import java.time.LocalDate;
@@ -16,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.pra.reports.beans.SampleOutReportBean;
+import com.pra.utils.commons.PrimaryKeyConverter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,7 +48,7 @@ public class SampleOut implements BaseModel<Integer>{
 	private List<SampleOutReading> readings;
 	
 	public String formattedKey() {
-		return formatKey(this.refId,PREFIX);
+		return PrimaryKeyConverter.formatKey(this.refId,this.date,PREFIX);
 	}
 	
 	public SampleOutReportBean sampleOutReportBean() {
