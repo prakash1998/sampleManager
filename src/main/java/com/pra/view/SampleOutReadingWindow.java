@@ -194,61 +194,61 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 		this.labelReading1 = new JLabel("Strength (%):");
 		contentPanel.add(this.labelReading1, "cell 0 4,alignx trailing");
 
-		this.formattedTextFieldStrength1 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldStrength1 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldStrength1, "cell 1 4,growx");
 
 		this.labelReading2 = new JLabel("Strength (%):");
 		contentPanel.add(this.labelReading2, "cell 2 4,alignx trailing");
 
-		this.formattedTextFieldStrength2 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldStrength2 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldStrength2, "cell 3 4,growx");
 
 		this.labelReading3 = new JLabel("DE :");
 		contentPanel.add(this.labelReading3, "cell 0 5,alignx trailing");
 
-		this.formattedTextFieldDE1 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDE1 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDE1, "cell 1 5,growx");
 
 		this.labelReading4 = new JLabel("DE :");
 		contentPanel.add(this.labelReading4, "cell 2 5,alignx trailing");
 
-		this.formattedTextFieldDE2 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDE2 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDE2, "cell 3 5,growx");
 
 		this.labelReading5 = new JLabel("DA :");
 		contentPanel.add(this.labelReading5, "cell 0 6,alignx trailing");
 
-		this.formattedTextFieldDA1 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDA1 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDA1, "cell 1 6,growx");
 
 		this.labelReading6 = new JLabel("DA :");
 		contentPanel.add(this.labelReading6, "cell 2 6,alignx trailing");
 
-		this.formattedTextFieldDA2 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDA2 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDA2, "cell 3 6,growx");
 
 		JLabel labelReading7 = new JLabel("DB :");
 		contentPanel.add(labelReading7, "cell 0 7,alignx trailing");
 
-		this.formattedTextFieldDB1 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDB1 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDB1, "cell 1 7,growx");
 
 		this.labelReading8 = new JLabel("DB :");
 		contentPanel.add(this.labelReading8, "cell 2 7,alignx trailing");
 
-		this.formattedTextFieldDB2 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDB2 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDB2, "cell 3 7,growx");
 
 		this.labelReading9 = new JLabel("DC :");
 		contentPanel.add(this.labelReading9, "cell 0 8,alignx trailing");
 
-		this.formattedTextFieldDC1 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDC1 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDC1, "cell 1 8,growx");
 
 		this.labelReading10 = new JLabel("DC :");
 		contentPanel.add(this.labelReading10, "cell 2 8,alignx trailing");
 
-		this.formattedTextFieldDC2 = new JFormattedTextField((Format) null);
+		this.formattedTextFieldDC2 = new JFormattedTextField(NumberFormat.getNumberInstance());
 		contentPanel.add(this.formattedTextFieldDC2, "cell 3 8,growx");
 		contentPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new java.awt.Component[]{this.textAreaDetail, this.formattedTextFieldStrength1, this.formattedTextFieldDE1, this.formattedTextFieldDA1, this.formattedTextFieldDB1, this.formattedTextFieldDC1, this.formattedTextFieldStrength2, this.formattedTextFieldDE2, this.formattedTextFieldDA2, this.formattedTextFieldDB2, this.formattedTextFieldDC2, this.lblId, this.formattedTextFieldId, this.labelDate, this.dateChooserDate, this.dateChooserDate.getCalendarButton(), this.labelReferenceNo, this.formattedTextFieldRefNo, this.labelDetailReport, this.lblGroup, this.lblGroup2, this.labelReading1, this.labelReading2, this.labelReading3, this.labelReading4, this.labelReading5, this.labelReading6, labelReading7, this.labelReading8, this.labelReading9, this.labelReading10}));
 
@@ -271,19 +271,20 @@ public class SampleOutReadingWindow extends BaseEntityWindow<SampleOutReading, S
 
 	public void showWindow(SampleOut sample) {
 		this.sampleOut = sample;
-		this.formattedTextFieldRefNo.setText(String.valueOf(PrimaryKeyConverter.getOrdinary(this.sampleOut.getRefId())));
+		this.formattedTextFieldRefNo.setText(this.sampleOut.formattedKey());
 		super.showWindow();
 	}
 
 	@Override
 	public void init() {
 		if (modelObject == null) {
-			LocalDate now = LocalDate.now();
-			this.formattedTextFieldId.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxId(), now)));
+			this.formattedTextFieldId.setText(String.valueOf(control.getNextInSequence()));
+			this.formattedTextFieldId.setEditable(true);
 			this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(LocalDate.now()));
-			this.dateChooserDate.setEnabled(true);
+//			this.dateChooserDate.setEnabled(true);
 		}else {
-			this.dateChooserDate.setEnabled(false);
+			this.formattedTextFieldId.setEditable(false);
+//			this.dateChooserDate.setEnabled(false);
 		}
 	}
 

@@ -193,7 +193,6 @@ public class SampleOutWindow extends BaseEntityWindow<SampleOut, SampleOutContro
 
 		this.lblSampleOut = new JLabel("Sample IN");
 		headerPanel.add(this.lblSampleOut);
-		footerPanel.setLayout(new BorderLayout(0, 0));
 
 	}
 
@@ -209,7 +208,8 @@ public class SampleOutWindow extends BaseEntityWindow<SampleOut, SampleOutContro
 				obj -> control.navigateToSampleOutReading(obj)) {
 			private static final long serialVersionUID = 1L;
 		};
-//		super.footerPanel.add(this.dataTablePane, BorderLayout.CENTER);
+		footerPanel.setLayout(new MigLayout("", "[grow]", "["+super.windowHeight/4+"]"));
+		footerPanel.add(this.dataTablePane, "cell 0 0,growx");
 	}
 
 	@Override
@@ -218,14 +218,14 @@ public class SampleOutWindow extends BaseEntityWindow<SampleOut, SampleOutContro
 			LocalDate now = LocalDate.now();
 			this.dateChooserDate.setDate(DateConvertUtils.asUtilDate(now));
 			this.formattedTextFieldRefNo
-					.setText(String.valueOf(PrimaryKeyConverter.getNextId(control.getMaxRefId(), now)));
+					.setText(String.valueOf(control.getNextInSequence()));
 			this.btnAddSampleReadings.setEnabled(false);
 			this.formattedTextFieldRefNo.setEditable(true);
-			this.dateChooserDate.setEnabled(true);
+//			this.dateChooserDate.setEnabled(true);
 		} else {
 			this.btnAddSampleReadings.setEnabled(true);
 			this.formattedTextFieldRefNo.setEditable(false);
-			this.dateChooserDate.setEnabled(false);
+//			this.dateChooserDate.setEnabled(false);
 			List<SampleOutReading> readings = modelObject.getReadings();
 			if (readings != null) {
 				this.dataTablePane.setTableData(

@@ -1,7 +1,6 @@
 package com.pra.model;
 
 import static com.pra.utils.view.DataFormatUtils.formatDate;
-import static com.pra.utils.view.DataFormatUtils.formatKey;
 import static com.pra.utils.view.DataFormatUtils.formatNum;
 
 import java.time.LocalDate;
@@ -14,6 +13,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pra.reports.beans.SampleOutReadingReportBean;
+import com.pra.utils.commons.PrimaryKeyConverter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,7 +49,7 @@ public class SampleOutReading implements BaseModel<Integer> {
 	private Double dc2;
 	
 	public String formattedKey() {
-		return formatKey(this.id,PREFIX);
+		return PrimaryKeyConverter.formatKey(this.id,this.date,PREFIX);
 	}
 	
 	public SampleOutReadingReportBean sampleOutReadingReportBean() {
@@ -58,7 +58,7 @@ public class SampleOutReading implements BaseModel<Integer> {
 				.id(this.formattedKey())
 				.date(formatDate(this.date))
 				.productName(this.sample == null ? "-" :this.sample.getProduct().toString())
-				.sampleOutRef(this.sample == null ? "-" :formatKey(this.sample.getRefId(),"IW"))
+				.sampleOutRef(this.sample == null ? "-" :this.sample.formattedKey())
 				.detailReport(this.detailReport)
 				.strength1(formatNum(this.strength1))
 				.strength2(formatNum(this.strength2))
